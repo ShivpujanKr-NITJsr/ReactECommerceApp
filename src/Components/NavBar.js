@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 
 import cartContext from '../store/cart-context';
 import Cart from './Cart';
+import { NavLink } from 'react-router-dom';
 const NavBar=(props)=>{
 
     const [shows,setShows]=useState(false);
@@ -27,8 +28,11 @@ const NavBar=(props)=>{
     <Container  >
 
       <Nav className='mx-auto'>
-        <Nav.Link href='#home' className="mx-lg-5 mx-sm-3">HOME</Nav.Link>
-        <Nav.Link href='#store' className="mx-lg-5 mx-sm-3">STORE</Nav.Link><Nav.Link href='#about' className="mx-lg-5 mx-sm-3">ABOUT</Nav.Link>
+        <NavLink to='/home' className="mx-lg-5 mx-sm-3">HOME</NavLink>
+        <NavLink to='/store' className="mx-lg-5 mx-sm-3">STORE</NavLink>
+        {/* <Nav.Link href='../pages/about' className="mx-lg-5 mx-sm-3">ABOUT</Nav.Link> */}
+        
+        <NavLink to="/about" className="mx-lg-5 mx-sm-3">ABOUT US</NavLink>
       </Nav>
       <Button onClick={show} >Cart</Button>
       <p style={{ color: 'white', margin: '3px' }}>{q}</p>
