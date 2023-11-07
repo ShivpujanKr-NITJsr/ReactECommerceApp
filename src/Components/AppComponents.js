@@ -8,7 +8,7 @@ import { productsArr } from "../ProductsArr/productsArr"
 
 
 const AppComponents = (props) => {
-
+  
   const [movies, setMovies] = useState([])
 
   const [loading, setLoad] = useState(false)
@@ -26,26 +26,25 @@ const AppComponents = (props) => {
 
     setError(null)
     setLoad(true);
-    // if(!run){
-    //   setRun(true)
-    //       return;
-    //     }
     try {
-      let response = await fetch('https://swapi.dev/api/film/')
+      let response = await fetch('https://swapi.dev/api/films/')
       if (!response.ok) {
         throw new Error('SomeThing went wrong!')
       }
       let data = await response.json()
       // data.results;
       console.log(data.results)
-      const transformedMovies = data.results.map(movieData => {
+      let transformedMovies = data.results.map(movieData => {
         return {
           id: movieData.episode_id,
           title: movieData.title,
           openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date
+          releaseDate: movieData.release_date,
+          price:movieData.episode_id,
+          imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png'
         }
       })
+      setMovies(transformedMovies);
       setLoad(false)
       setMovies(transformedMovies)
       setCancel(true)
@@ -59,16 +58,15 @@ const AppComponents = (props) => {
         setCancel(false)
         return;
       } else {
-        // setError(null)
         changing.current = true;
         console.log('no call again')
       }
-
-
     }
 
   }
-
+  useEffect(()=>{
+    fetchMoviesHandler()
+  },[])
 
   useEffect(() => {
 
@@ -95,8 +93,6 @@ const AppComponents = (props) => {
     }
   }, [runRef.current])
 
-  
-
   const change = () => {
     console.log('under change ', runRef.current)
     runRef.current = false;
@@ -119,7 +115,7 @@ const AppComponents = (props) => {
         {!loading && error && <div className="d-flex flex-row" style={{ textAlign: 'center' }}><p className="mx-5">{error} {` Retrying in 5 second`}</p><button onClick={change}>Cancel</button></div>}
       </section>
 
-      {productsArr.map(item => {
+      {movies.map(item => {
         return <SingleProduct item={item} key={Math.random().toString() + '12'} />
       })}
 
