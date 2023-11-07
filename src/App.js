@@ -11,6 +11,7 @@ import About from './pages/About';
 import { Routes, Route } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
 import AppComponents from './Components/AppComponents';
+import Home from './pages/Home';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
       <Routes >
       <Route exact path='/' element={<AppComponents/>}/>
         <Route exact path='/about' element={<About/>}/>
-        <Route exact path='/home' element={<AboutPage/>}/>
+        <Route exact path='/home' element={<Home/>}/>
       </Routes>
       
       
