@@ -14,6 +14,7 @@ import AppComponents from './Components/AppComponents';
 import Home from './pages/Home';
 
 import Contact from './pages/Contact'
+import Movie from './pages/Movie'
 
 function App() {
 
@@ -25,10 +26,11 @@ function App() {
       <NavBar />
       
       <Routes >
-      <Route exact path='/' element={<AppComponents/>}/>
+        <Route exact path='/' element={<AppComponents/>}/>
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/home' element={<Home/>}/>
         <Route exact path='/contact' element ={<Contact />} />
+        <Route exact path='/movies/:id' element={<Movie />} />
       </Routes>
       
       

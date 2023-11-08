@@ -2,6 +2,7 @@
 import { Button, Container, Nav, Navbar, Card, Col, Table, Row, CardHeader } from 'react-bootstrap';
 import cartContext from '../store/cart-context';
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const SingleProduct =(props)=>{
 
@@ -25,7 +26,7 @@ const SingleProduct =(props)=>{
               
               <Card className='border-0 ' style={{ width: '18rem' }} key={'1'+Math.random().toString()}>
                 <Card.Header className='p-0 d-flex flex-column justify-content-center align-items-center bg-white mb-3'>
-                <Card.Title>{props.item.title}</Card.Title>
+                <Card.Title><NavLink to={`/movies/${props.item.id}`}>{props.item.title}</NavLink></Card.Title>
                 <Card.Img variant="top" src={props.item.imageUrl} />
 
                 </Card.Header>
