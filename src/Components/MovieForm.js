@@ -32,7 +32,8 @@ const MovieForm =(props)=>{
             alert('please fill all field with valid value')
             return;
         }
-        console.log(grinput)
+        console.log(grinput,' grinput')
+        props.addMovieHandler({...grinput,imageUrl:grinput.url})
     }
     return <Form onSubmit={submitHandler} style={{margin:'auto',textAlign:"center" ,padding:'5px',width:'20rem'}} className="d-flex flex-column">
         <FormLabel>
@@ -42,7 +43,7 @@ const MovieForm =(props)=>{
         <FormLabel>
             Price
         </FormLabel>
-        <input type="text" onChange={priceHandler} id="price"></input>
+        <input type="number" onChange={priceHandler} id="price"></input>
         <FormLabel>
             imageUrl
         </FormLabel>

@@ -8,11 +8,18 @@ const SingleProduct =(props)=>{
 
     const crtContext=useContext(cartContext);
 
-  const addToCart=(item)=>{
-    let p={...item}
-    crtContext.addToCart({...item})
+  const addToCart=(event)=>{
+    event.preventDefault()
+    let p={...props.item}
+    crtContext.addToCart({...p})
     // console.log('adding ',p)
   }
+
+    const deleteItem= (event)=>{
+      event.preventDefault()
+      // console.log(props.item.id)
+      props.deleteItem(props.item)
+    }
 
     return <><Col md='4' className='d-flex  align-items-center justify-content-center'  key={Math.random().toString()}>
               
@@ -28,8 +35,13 @@ const SingleProduct =(props)=>{
                     
                   ${props.item.price}
                   </Card.Text>
-                  <Button variant="primary" onClick={()=>{addToCart(props.item)}}>Add to Cart</Button>
+                  
+                  
                 </Card.Body>
+                <Card.Footer>
+                <Button variant="primary" onClick={deleteItem}>delete</Button>
+                <Button variant="primary" onClick={addToCart}>Add to Cart</Button>
+                </Card.Footer>
               </Card>
              
             </Col></>

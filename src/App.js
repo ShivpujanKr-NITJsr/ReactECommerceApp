@@ -23,7 +23,7 @@ function App() {
     <CartProvider>
       
       <NavBar />
-      <MovieForm />
+      
       <Routes >
       <Route exact path='/' element={<AppComponents/>}/>
         <Route exact path='/about' element={<About/>}/>

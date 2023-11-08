@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { Container, Row, Spinner } from "react-bootstrap"
 import SingleProduct from "./SingleProduct"
 import { productsArr } from "../ProductsArr/productsArr"
+import MovieForm from "./MovieForm"
 
 
 
@@ -10,16 +11,11 @@ import { productsArr } from "../ProductsArr/productsArr"
 const AppComponents = (props) => {
   
   const [movies, setMovies] = useState([])
-
   const [loading, setLoad] = useState(false)
-
   const [error, setError] = useState(null)
-
   const [cancel, setCancel] = useState(true);
-
   // const [run,setRun]=useState(true)
   const runRef = useRef(false);
-
   const changing = useRef(true)
 
   async function fetchMoviesHandler() {
@@ -27,26 +23,27 @@ const AppComponents = (props) => {
     setError(null)
     setLoad(true);
     try {
-      let response = await fetch('https://swapi.dev/api/films/')
+      let response = await fetch('https://react-http-76942-default-rtdb.firebaseio.com/movies.json')
       if (!response.ok) {
         throw new Error('SomeThing went wrong!')
       }
       let data = await response.json()
       // data.results;
-      console.log(data.results)
-      let transformedMovies = data.results.map(movieData => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-          price:movieData.episode_id,
-          imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png'
-        }
-      })
-      setMovies(transformedMovies);
+      const loadedMovies=[]
+
+      for(const key in data){
+        loadedMovies.push({
+          id:key,
+          title:data[key].title,
+          price:data[key].price,
+          imageUrl:data[key].imageUrl
+        })
+      }
+      // console.log(data.results)
+      
+      setMovies(loadedMovies);
       setLoad(false)
-      setMovies(transformedMovies)
+      
       setCancel(true)
       runRef.current = false;
     } catch (err) {
@@ -101,8 +98,50 @@ const AppComponents = (props) => {
     console.log(runRef.current + ' run')
   }
 
-  return <Container className='d-flex  align-items-center justify-content-center'>
+  async function addMovieHandler(movie){
+    // setMovies([...movies,movie])
+    const response =await fetch('https://react-http-76942-default-rtdb.firebaseio.com/movies.json', {
+      method: 'POST',
+      body: JSON.stringify(movie),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+    setMovies([...movies,movie])
+    const data= await response.json();
+    console.log(data)
 
+  }
+
+  async function deleteItem(item){
+    console.log(item.id)
+    const response=await fetch(`https://react-http-76942-default-rtdb.firebaseio.com/movies/${item.id}.json`,{
+      method: 'DELETE',
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+
+    const data=await response.json();
+    console.log(data)
+
+    let m=[...movies];
+let ans=[]
+    for(let i=0;i<m.length;i++){
+      if(m[i].id===item.id){
+        continue;
+      }
+      ans.push(m[i])
+    }
+    // fetchMoviesHandler()
+   
+    setMovies([...ans])
+  }
+
+  
+  return <><MovieForm addMovieHandler={addMovieHandler}/>
+   <Container className='d-flex  align-items-center justify-content-center'>
+    
     <Row className='d-flex gap-5 align-items-center justify-content-center mt-5'>
 
       <button onClick={fetchMoviesHandler} disabled={loading && !error ? true : false} >{loading ? <Spinner animation="border" role="status">
@@ -116,12 +155,12 @@ const AppComponents = (props) => {
       </section>
 
       {movies.map(item => {
-        return <SingleProduct item={item} key={Math.random().toString() + '12'} />
+        return <SingleProduct deleteItem={deleteItem} item={item} key={Math.random().toString() + '12'} />
       })}
 
     </Row>
   </Container>
-
+  </>
 }
 
 
