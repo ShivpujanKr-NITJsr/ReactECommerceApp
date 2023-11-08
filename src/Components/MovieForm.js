@@ -28,10 +28,10 @@ const MovieForm =(props)=>{
 
     const submitHandler=(event)=>{
         event.preventDefault()
-        if(grinput.url.trim().length===0 || grinput.price<0 || grinput.title.trim().length===0){
-            alert('please fill all field with valid value')
-            return;
-        }
+        // if(grinput.url.trim().length===0 || grinput.price<0 || grinput.title.trim().length===0){
+        //     alert('please fill all field with valid value')
+        //     return;
+        // }
         console.log(grinput,' grinput')
         props.addMovieHandler({...grinput,imageUrl:grinput.url})
     }
@@ -39,15 +39,15 @@ const MovieForm =(props)=>{
         <FormLabel>
             Title
         </FormLabel>
-        <input type="text" onChange={titleHandler} id="title"></input>
+        <input type="text" onChange={titleHandler} id="title" required></input>
         <FormLabel>
             Price
         </FormLabel>
-        <input type="number" onChange={priceHandler} id="price"></input>
+        <input type="number" onChange={priceHandler} id="price" required></input>
         <FormLabel>
             imageUrl
         </FormLabel>
-        <input type="text" onChange={urlHandler} id="url"></input>
+        <input type="text" onChange={urlHandler} id="url" required></input>
         <Button type='submit' className="mx-5 my-2">Add Movies</Button>
     </Form>
 }

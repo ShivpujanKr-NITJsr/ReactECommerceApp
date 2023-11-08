@@ -12,8 +12,8 @@ import { Routes, Route } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
 import AppComponents from './Components/AppComponents';
 import Home from './pages/Home';
-import MovieForm from './Components/MovieForm';
 
+import Contact from './pages/Contact'
 
 function App() {
 
@@ -28,6 +28,7 @@ function App() {
       <Route exact path='/' element={<AppComponents/>}/>
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/home' element={<Home/>}/>
+        <Route exact path='/contact' element ={<Contact />} />
       </Routes>
       
       
