@@ -39,6 +39,7 @@ const NavBar=(props)=>{
         <NavLink to="/about" className="mx-lg-5 mx-sm-3">ABOUT US</NavLink>
         <NavLink to="/contact" className="mx-lg-5 mx-sm-3">CONTACT US</NavLink>
       </Nav>
+      {ctxContext.isLoggedIn && <NavLink  className='mx-lg-3 mx-sm-3' style={{textDecoration:'none'}}>Profile</NavLink>}
       {ctxContext.isLoggedIn && <NavLink onClick={logoutHandler} className='mx-lg-3 mx-sm-3'>Logout</NavLink>}
       
       {!ctxContext.isLoggedIn && <NavLink to='/login' className='mx-lg-3 mx-sm-3'>Login</NavLink>}
