@@ -71,21 +71,7 @@ console.log(data)
             })
         // submitting()
     }
-    async function submitting() {
-        // const reponse = await fetch('https://react-http-76942-default-rtdb.firebaseio.com/contactdetails.json', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(grinput)
-        // })
-
-        // const data = await reponse.json()
-
-        // console.log(data + ' submitted')
-        alert('loginned')
-
-    }
+   
 
     return <div style={{ margin: 'auto', border: '5px', width: '20rem' }} >
 

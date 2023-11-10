@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import Contact from './pages/Contact'
 import Movie from './pages/Movie'
 import SignUp from './pages/SignUp';
+import ProfileForm from './Profile/ProfileForm';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route exact path='/movies/:id' element={<Movie />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path='/profile/' element={<ProfileForm />}/>
       </Routes>
       
       
