@@ -4,6 +4,7 @@ import SingleProduct from "./SingleProduct"
 import { productsArr } from "../ProductsArr/productsArr"
 import MovieForm from "./MovieForm"
 import cartContext from "../store/cart-context"
+import Login from "../pages/Login"
 
 
 
@@ -165,6 +166,10 @@ let ans=[]
     </Row>
   </Container>
   </div>}
+
+  {!authctx.isLoggedIn && <Login />}
+
+
   
   </>
 }

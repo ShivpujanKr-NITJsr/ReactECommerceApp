@@ -67,6 +67,7 @@ const Login = (props) => {
                 }
             }).then(data => {
                 authContext.login(data.idToken);
+                localStorage.setItem('token',data.idToken);
                 history('/')
 console.log(data)
             }).catch(err => {

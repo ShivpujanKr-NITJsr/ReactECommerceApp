@@ -2,6 +2,7 @@ import { useContext, useRef } from "react"
 import cartContext from "../store/cart-context";
 
 import { useNavigate } from "react-router-dom";
+import Login from "../pages/Login";
 
 const ProfileForm=()=>{
 
@@ -32,7 +33,8 @@ const ProfileForm=()=>{
     }
 
     return (
-        <form onSubmit={submitHandler} style={{margin:'auto',textAlign:"center"}}>
+        <>
+        { authContext.isLoggedIn && <form onSubmit={submitHandler} style={{margin:'auto',textAlign:"center"}}>
             <div>
                 <label htmlFor="new-password">
                     New Password
@@ -42,7 +44,10 @@ const ProfileForm=()=>{
             <div>
                 <button>Change Password</button>
             </div>
-        </form>
+        </form>}
+
+        {!authContext.isLoggedIn && <Login />}
+        </>
     )
 }
 

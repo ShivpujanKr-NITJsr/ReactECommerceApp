@@ -28,8 +28,13 @@ const NavBar=(props)=>{
 
     const logoutHandler=()=>{
       // history('/login')
+      localStorage.removeItem('token')
       ctxContext.logout()
       
+    }
+
+    if(localStorage.getItem('token')!==null){
+      ctxContext.login(localStorage.getItem('token'))
     }
 
     return <Navbar sticky="top" bg='black' variant='dark' color='white' >

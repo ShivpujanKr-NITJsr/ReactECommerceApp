@@ -8,7 +8,7 @@ import CartProvider from './store/CartProvider';
 import SingleProduct from './Components/SingleProduct';
 import NavBar from './Components/NavBar';
 import About from './pages/About';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
 import AppComponents from './Components/AppComponents';
 import Home from './pages/Home';
@@ -17,10 +17,12 @@ import Contact from './pages/Contact'
 import Movie from './pages/Movie'
 import SignUp from './pages/SignUp';
 import ProfileForm from './Profile/ProfileForm';
+import { useContext } from 'react';
+import cartContext from './store/cart-context';
 
 function App() {
 
-
+  const cartctx= useContext(cartContext)
 
   return (
     <CartProvider>
@@ -33,9 +35,13 @@ function App() {
         <Route exact path='/home' element={<Home/>}/>
         <Route exact path='/contact' element ={<Contact />} />
         <Route exact path='/movies/:id' element={<Movie />} />
-        <Route exact path='/login' element={<Login />} />
+
+        {!cartctx.isLoggedIn && <Route exact path='/login' element={<Login />} />}
         <Route exact path='/signup' element={<SignUp />} />
-        <Route exact path='/profile/' element={<ProfileForm />}/>
+
+        <Route exact path='/profile' element={<ProfileForm />}/>
+
+        {/* <Route exact path='*' element={<Navigate to='/login' replace />} /> */}
       </Routes>
       
       
