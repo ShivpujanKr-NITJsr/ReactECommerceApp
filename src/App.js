@@ -12,9 +12,10 @@ import { Routes, Route } from 'react-router-dom';
 import AboutPage from './pages/AboutPage';
 import AppComponents from './Components/AppComponents';
 import Home from './pages/Home';
-
+import Login from './pages/Login';
 import Contact from './pages/Contact'
 import Movie from './pages/Movie'
+import SignUp from './pages/SignUp';
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
         <Route exact path='/home' element={<Home/>}/>
         <Route exact path='/contact' element ={<Contact />} />
         <Route exact path='/movies/:id' element={<Movie />} />
+        <Route exact path='/login' element={<Login />} />
+        <Route exact path='/signup' element={<SignUp />} />
       </Routes>
       
       
