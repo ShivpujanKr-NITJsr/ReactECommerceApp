@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react"
 import cartContext from "../store/cart-context";
 
-
+import { useNavigate } from "react-router-dom";
 
 const ProfileForm=()=>{
 
@@ -9,6 +9,7 @@ const ProfileForm=()=>{
 
     const authContext=useContext(cartContext)
 
+    const history=useNavigate()
     const submitHandler=event=>{
         event.preventDefault();
 
@@ -26,6 +27,7 @@ const ProfileForm=()=>{
             }
         }).then(res=>{
 
+            history('/login')
         })
     }
 

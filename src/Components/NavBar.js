@@ -3,6 +3,7 @@ import { Button, Container, Nav, Navbar, Card, Col, Table, Row, CardHeader } fro
 
 import { useContext, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 
 import cartContext from '../store/cart-context';
 import Cart from './Cart';
@@ -11,6 +12,7 @@ const NavBar=(props)=>{
 
     const [shows,setShows]=useState(false);
   
+    const history =useNavigate()
     const ctxContext=useContext(cartContext)
     
     const show=()=>{
@@ -25,7 +27,9 @@ const NavBar=(props)=>{
 
 
     const logoutHandler=()=>{
+      // history('/login')
       ctxContext.logout()
+      
     }
 
     return <Navbar sticky="top" bg='black' variant='dark' color='white' >

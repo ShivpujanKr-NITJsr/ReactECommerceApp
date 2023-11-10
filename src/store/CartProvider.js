@@ -4,9 +4,11 @@ import React, { useState } from "react";
 
 import cartContext from "./cart-context";
 
+// import { useHistory } from "react-router-dom";
 
 const CartProvider =(props)=>{
 
+    // const history = useHistory()
     const [items,setItems]=useState([]);
     const [total,setTotal]=useState(0)
     const [quantity,setQuant]=useState(0)

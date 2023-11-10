@@ -3,6 +3,7 @@ import { Form, FormLabel, Button, Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import cartContext from "../store/cart-context";
 
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
 
@@ -10,6 +11,7 @@ const Login = (props) => {
     // const [grinput, setGrinput] = useState({  email: '', password: '' })
     const [isLogin, setIsLogin] = useState(true)
 
+    const history=useNavigate();
     const [loading, setLoading] = useState(false)
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
@@ -54,10 +56,10 @@ const Login = (props) => {
                     return res.json().then((data) => {
                         let errorMessage = 'Authentication failed'
 
-                        if (data && data.error && data.error.message) {
+                        // if (data && data.error && data.error.message) {
 
-                            errorMessage = data.error.message;
-                        }
+                        //     errorMessage = data.error.message;
+                        // }
 
 
                         throw new Error(errorMessage)
@@ -65,9 +67,10 @@ const Login = (props) => {
                 }
             }).then(data => {
                 authContext.login(data.idToken);
+                history('/')
 console.log(data)
             }).catch(err => {
-                alert(err);
+                alert(err.message);
             })
         // submitting()
     }

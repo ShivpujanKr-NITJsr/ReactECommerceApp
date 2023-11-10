@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { Container, Row, Spinner } from "react-bootstrap"
 import SingleProduct from "./SingleProduct"
 import { productsArr } from "../ProductsArr/productsArr"
 import MovieForm from "./MovieForm"
+import cartContext from "../store/cart-context"
 
 
 
@@ -18,6 +19,7 @@ const AppComponents = (props) => {
   const runRef = useRef(false);
   const changing = useRef(true)
 
+  const authctx=useContext(cartContext)
   async function fetchMoviesHandler() {
 
     setError(null)
@@ -139,10 +141,12 @@ let ans=[]
   }
 
   
-  return <><MovieForm addMovieHandler={addMovieHandler}/>
+  return <>
+  {authctx.isLoggedIn && <div>
+  <MovieForm addMovieHandler={addMovieHandler}/>
    <Container className='d-flex  align-items-center justify-content-center'>
     
-    <Row className='d-flex gap-5 align-items-center justify-content-center mt-5'>
+ <Row className='d-flex gap-5 align-items-center justify-content-center mt-5'>
 
       <button onClick={fetchMoviesHandler} disabled={loading && !error ? true : false} >{loading ? <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
@@ -160,6 +164,8 @@ let ans=[]
 
     </Row>
   </Container>
+  </div>}
+  
   </>
 }
 
