@@ -24,6 +24,10 @@ const NavBar=(props)=>{
     let q=ctxContext.quantity
 
 
+    const logoutHandler=()=>{
+      ctxContext.logout()
+    }
+
     return <Navbar sticky="top" bg='black' variant='dark' color='white' >
     <Container  >
 
@@ -35,8 +39,11 @@ const NavBar=(props)=>{
         <NavLink to="/about" className="mx-lg-5 mx-sm-3">ABOUT US</NavLink>
         <NavLink to="/contact" className="mx-lg-5 mx-sm-3">CONTACT US</NavLink>
       </Nav>
-      <NavLink to='/login' className='mx-lg-3 mx-sm-3'>Login</NavLink>
+      {ctxContext.isLoggedIn && <NavLink onClick={logoutHandler} className='mx-lg-3 mx-sm-3'>Logout</NavLink>}
+      
+      {!ctxContext.isLoggedIn && <NavLink to='/login' className='mx-lg-3 mx-sm-3'>Login</NavLink>}
       <Button onClick={show} >Cart</Button>
+    
       <p style={{ color: 'white', margin: '3px' }}>{q}</p>
     </Container>
     <Cart shows={shows} onHide={onHide}/>

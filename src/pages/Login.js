@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef, useState,useContext } from "react";
 import { Form, FormLabel, Button, Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import cartContext from "../store/cart-context";
 
 
 const Login = (props) => {
@@ -14,6 +15,7 @@ const Login = (props) => {
     const passwordInputRef = useRef();
 
 
+    const authContext=useContext(cartContext)
 
 
     const submitHandler = (event) => {
@@ -62,6 +64,7 @@ const Login = (props) => {
                     })
                 }
             }).then(data => {
+                authContext.login(data.idToken);
 console.log(data)
             }).catch(err => {
                 alert(err);
@@ -87,7 +90,7 @@ console.log(data)
     return <div style={{ margin: 'auto', border: '5px', width: '20rem' }} >
 
         <Form onSubmit={submitHandler} style={{ margin: 'auto', textAlign: "center", padding: '5px', width: '20rem' }} className="d-flex flex-column">
-
+            <h3>Login</h3>
             <FormLabel>
                 Email
             </FormLabel>

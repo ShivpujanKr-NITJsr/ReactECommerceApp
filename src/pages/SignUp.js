@@ -56,7 +56,7 @@ const SignUp = (props) => {
     return <div style={{ margin: 'auto', border: '5px', width: '20rem' }} >
 
         <Form onSubmit={submitHandler} style={{ margin: 'auto', textAlign: "center", padding: '5px', width: '20rem' }} className="d-flex flex-column">
-            
+        <h3>Sign Up</h3>
             <FormLabel>
                 Email
             </FormLabel>

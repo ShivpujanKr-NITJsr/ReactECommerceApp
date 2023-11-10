@@ -10,6 +10,10 @@ const CartProvider =(props)=>{
     const [items,setItems]=useState([]);
     const [total,setTotal]=useState(0)
     const [quantity,setQuant]=useState(0)
+    const [token,setToken]=useState('');
+
+    const userIsLoggedIn=!!token;
+
     const addToCart=(item)=>{
         let p=[...items];
         let t=0;let found=false
@@ -47,11 +51,22 @@ const CartProvider =(props)=>{
         setQuant(Number(quantity)-Number(1))
     }
 
+    const loginHandler=(token)=>{
+        setToken(token)
+    }
+
+    const logoutHandler=()=>{
+        setToken(null)
+    }
 
     const ctxContext={
         items:items||[],
         total:total,
     quantity:quantity,
+    token:token,
+    isLoggedIn:userIsLoggedIn,
+    login:loginHandler,
+    logout:logoutHandler,
         addToCart:addToCart,
         removeFromCart:removeFromCart
     }
