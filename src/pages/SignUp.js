@@ -1,48 +1,57 @@
-import { useState } from "react";
-import { Form, FormLabel,Button } from "react-bootstrap";
+import { useRef, useState } from "react";
+import { Form, FormLabel,Button,Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 
 const SignUp = (props) => {
+    const [isLogin,setIsLogin]=useState(false)
+    const [loading,setLoading]=useState(false)
 
-
-    const [grinput, setGrinput] = useState({  email: '', password: '' })
-
-
-    
-    const emailHandler = (event) => {
-        event.preventDefault()
-        const t = event.target.value
-        setGrinput({ ...grinput, email: t })
-
-    }
-    const passwordHandler = (event) => {
-        event.preventDefault()
-        const t = event.target.value
-        setGrinput({ ...grinput, password: t })
-    }
+    const emailInputRef=useRef();
+    const passwordInputRef=useRef();
 
     const submitHandler = (event) => {
         event.preventDefault()
 
-        console.log(grinput, ' grinput')
-        submitting(grinput)
-    }
-    async function submitting(grinput) {
-        // const reponse = await fetch('https://react-http-76942-default-rtdb.firebaseio.com/contactdetails.json', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(grinput)
-        // })
+        const enteredEmail=emailInputRef.current.value;
+        const enteredPassword=passwordInputRef.current.value;
 
-        // const data = await reponse.json()
+        setLoading(true)
+        if(isLogin){
 
-        // console.log(data + ' submitted')
-        alert('loginned')
-        setGrinput({  email: '', password: '' })
+        }else {
+            fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBhfCmRXqTgnJ-C0hRQAcj0bOv5hhqTioA',
+            {
+                method:'POST',
+                body:JSON.stringify({
+                    email:enteredEmail,
+                    password: enteredPassword,
+                    returnSecureToken: true
+                }),
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res=>{
+                setLoading(false)
+                if(res.ok){
+
+                }else{
+                    return res.json().then((data)=>{
+                        let errorMessage = 'Authentication failed'
+
+                        if(data && data.error && data.error.message){
+
+                            errorMessage=data.error.message;
+                        }
+
+                        alert(errorMessage);
+                    })
+                }
+            })
+        }
+        // submitting()
     }
+  
 
     return <div style={{ margin: 'auto', border: '5px', width: '20rem' }} >
 
@@ -51,12 +60,15 @@ const SignUp = (props) => {
             <FormLabel>
                 Email
             </FormLabel>
-            <input type="email" onChange={emailHandler} value={grinput.email} id="email" required></input>
+            <input type="email"  id="email" required ref={ emailInputRef}></input>
             <FormLabel>
                 Your Password
             </FormLabel>
-            <input type="password" onChange={passwordHandler} id="phone" value={grinput.tel} required></input>
-            <Button type='submit' className="mx-5 my-2">Sign In</Button>
+            <input type="password"  id="password"  required  ref={passwordInputRef}></input>
+            {!loading && <Button type='submit' className="mx-5 my-2">Create Account</Button>}
+            {loading && <Spinner animation="border" className="mx-auto my-2" >
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>}
             <NavLink to='/login'>Login with existing account</NavLink> 
         </Form>
     </div>
