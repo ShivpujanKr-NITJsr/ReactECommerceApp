@@ -27,7 +27,8 @@ const ProfileForm=()=>{
                 'Content-Type': 'application/json'
             }
         }).then(res=>{
-
+            localStorage.removeItem('token')
+            authContext.logout()
             history('/login')
         })
     }

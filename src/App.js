@@ -24,19 +24,30 @@ function App() {
 
   const cartctx= useContext(cartContext)
 
+  console.log('running app components')
+  // if(localStorage.getItem('token')!==null && localStorage.getItem('token').length>0){
+  //   cartctx.login(localStorage.getItem('token'))
+  //   console.log('login by self')
+  // }
+
   return (
     <CartProvider>
       
       <NavBar />
       
       <Routes >
-        <Route exact path='/' element={<AppComponents/>}/>
+        {/* <Route path='/' element={cartctx.isLoggedIn ? <AppComponents /> : <Navigate to='/login' />}/> */}
+        <Route exact path='/' element={<AppComponents />}/>
+          
+          
+      
         <Route exact path='/about' element={<About/>}/>
         <Route exact path='/home' element={<Home/>}/>
         <Route exact path='/contact' element ={<Contact />} />
         <Route exact path='/movies/:id' element={<Movie />} />
 
         {!cartctx.isLoggedIn && <Route exact path='/login' element={<Login />} />}
+        {!cartctx.isLoggedIn && <Route exact path='/login' element={<Navigate to='/login' />} />}
         <Route exact path='/signup' element={<SignUp />} />
 
         <Route exact path='/profile' element={<ProfileForm />}/>

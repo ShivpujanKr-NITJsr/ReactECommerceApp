@@ -1,4 +1,4 @@
-import { useRef, useState,useContext } from "react";
+import { useRef, useState,useContext,useEffect } from "react";
 import { Form, FormLabel, Button, Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import cartContext from "../store/cart-context";
@@ -19,7 +19,12 @@ const Login = (props) => {
 
     const authContext=useContext(cartContext)
 
-
+useEffect(() => {
+    if (localStorage.getItem('token') !== null) {
+      // authctx.login(localStorage.getItem('token'))
+      history('/')
+    }
+  })
     const submitHandler = (event) => {
         event.preventDefault()
 
@@ -67,7 +72,13 @@ const Login = (props) => {
                 }
             }).then(data => {
                 authContext.login(data.idToken);
-                localStorage.setItem('token',data.idToken);
+                console.log('saving')
+                // localStorage.setItem('token',data.idToken);
+                // setTimeout(()=>{
+                //     localStorage.removeItem('token')
+                //     authContext.logout()
+                //     console.log('removed')
+                // },300000)
                 history('/')
 console.log(data)
             }).catch(err => {

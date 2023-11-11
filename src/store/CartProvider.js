@@ -1,18 +1,37 @@
 
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import cartContext from "./cart-context";
 
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CartProvider =(props)=>{
 
-    // const history = useHistory()
+    const history = useNavigate()
+    const [logtimer,setLogtimer]=useState(null)
+
     const [items,setItems]=useState([]);
     const [total,setTotal]=useState(0)
     const [quantity,setQuant]=useState(0)
     const [token,setToken]=useState('');
+    // console.log(' i am userloggedin ',!!token)
+
+    const setLogoutTimer=()=>{
+        const timeout=setTimeout(()=>{
+            logoutHandler();
+        },300000)
+
+        setLogtimer(timeout)
+    }
+    useEffect(()=>{
+        if(localStorage.getItem('token')){
+            setToken(localStorage.getItem('token'))
+        }
+       return ()=>{
+        clearTimeout(logtimer)
+       }
+    },[logtimer])
 
     const userIsLoggedIn=!!token;
 
@@ -54,11 +73,21 @@ const CartProvider =(props)=>{
     }
 
     const loginHandler=(token)=>{
+        
         setToken(token)
+        localStorage.setItem('token',token)
+
+        setLogoutTimer()
     }
 
     const logoutHandler=()=>{
         setToken(null)
+        if(localStorage.getItem('token')){
+
+            localStorage.removeItem('token')
+        }
+        clearTimeout(logtimer)
+        // history('/login')
     }
 
     const ctxContext={
