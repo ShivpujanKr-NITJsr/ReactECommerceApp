@@ -52,7 +52,7 @@ function App() {
 
         <Route exact path='/profile' element={<ProfileForm />}/>
 
-        {/* <Route exact path='*' element={<Navigate to='/login' replace />} /> */}
+        <Route exact path='*' element={<Navigate to='/login' replace />} />
       </Routes>
       
       

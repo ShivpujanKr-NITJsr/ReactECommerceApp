@@ -51,9 +51,9 @@ const NavBar=(props)=>{
       {ctxContext.isLoggedIn && <NavLink onClick={logoutHandler} className='mx-lg-3 mx-sm-3'>Logout</NavLink>}
       
       {!ctxContext.isLoggedIn && <NavLink to='/login' className='mx-lg-3 mx-sm-3'>Login</NavLink>}
-      <Button onClick={show} >Cart</Button>
+      {ctxContext.isLoggedIn && <Button onClick={show} >Cart</Button>}
     
-      <p style={{ color: 'white', margin: '3px' }}>{q}</p>
+      {ctxContext.isLoggedIn && <p style={{ color: 'white', margin: '3px' }}>{q}</p>}
     </Container>
     <Cart shows={shows} onHide={onHide}/>
   </Navbar>
